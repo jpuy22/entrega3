@@ -41,6 +41,34 @@ class ProductManager{
         }
     }
 
+    
+    getProdObj = () => {
+        if(fs.existsSync(this.path)){
+            
+            let content = fs.readFileSync(this.path, 'utf-8')
+            return JSON.parse(content)
+            
+            return fs.promises.readFile(this.path, 'utf-8').then(r=> JSON.parse(r))
+            
+            
+        }else{
+            return []
+        } 
+    }
+    
+    getProducts = async () =>{
+        try{
+            if(fs.existsSync(this.path)){
+                return await fs.promises.readFile(this.path, 'utf-8').then(r => JSON.parse(r))
+            }else{
+                return []
+            } 
+        }catch(error){
+            console.log(error)
+        }
+    }
+    
+
     addProduct = (title, description, price, thumbnail, code, stock) => {
         const product = {
             id: this.getNextId(this.path),
@@ -125,5 +153,3 @@ class ProductManager{
 
 
 module.exports = ProductManager;
-
-
