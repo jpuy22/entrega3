@@ -31,11 +31,10 @@ app.get('/add', async (req, res)=>{
 app.get('/products/:pid', async (req, res) =>{
     let id = 0
     try{
-        let id = parseInt(req.params)
+        id= parseInt(req.params.pid)
     }catch(error){
-        console.log('Error en id', error)
+        console.log('Error with id: ', error)
     }
-    console.log(id)
     const  product = await productManager.getProductById(id)
     res.json(product)
 })
